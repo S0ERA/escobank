@@ -20,6 +20,7 @@ function App() {
         token: {
           colorPrimary: '#0b63f6', // подгони под фигму
           borderRadius: 16,
+          fontSize: 18,
         },
       }}
     >

@@ -1,21 +1,35 @@
-import { Layout, Menu } from 'antd'
 import type { MenuProps } from 'antd'
-import type { ReactNode } from 'react'
 import styles from './AppLayout.module.css'
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
+
+import { Layout, Menu, Input, Avatar, Badge, Space } from 'antd'
+import {
+  HomeOutlined,
+  SwapOutlined,
+  WalletOutlined,
+  LineChartOutlined,
+  CreditCardOutlined,
+  MoneyCollectOutlined,
+  AppstoreOutlined,
+  CrownOutlined,
+  SettingOutlined,
+  BellOutlined,
+  SearchOutlined,
+  UserOutlined,
+} from '@ant-design/icons'
 
 const { Sider, Header, Content } = Layout
 
 const menuItems: MenuProps['items'] = [
-  { key: '/', label: 'Главная' },
-  { key: '/transactions', label: 'Транзакции' },
-  { key: '/accounts', label: 'Аккаунты' },
-  { key: '/investments', label: 'Инвестиции' },
-  { key: '/credit-card', label: 'Кредитная карта' },
-  { key: '/loans', label: 'Кредиты' },
-  { key: '/services', label: 'Сервисы' },
-  { key: '/privileges', label: 'Мои привилегии' },
-  { key: '/settings', label: 'Настройки' },
+  { key: '/', icon: <HomeOutlined />, label: 'Главная' },
+  { key: '/transactions', icon: <SwapOutlined />, label: 'Транзакции' },
+  { key: '/accounts', icon: <WalletOutlined />, label: 'Аккаунты' },
+  { key: '/investments', icon: <LineChartOutlined />, label: 'Инвестиции' },
+  { key: '/credit-card', icon: <CreditCardOutlined />, label: 'Кредитная карта' },
+  { key: '/loans', icon: <MoneyCollectOutlined />, label: 'Кредиты' },
+  { key: '/services', icon: <AppstoreOutlined />, label: 'Сервисы' },
+  { key: '/privileges', icon: <CrownOutlined />, label: 'Мои привилегии' },
+  { key: '/settings', icon: <SettingOutlined />, label: 'Настройки' },
 ];
 
 export const AppLayout = () => {
@@ -29,22 +43,41 @@ export const AppLayout = () => {
         <Menu
           mode="inline"
           items={menuItems}
-          selectedKeys={[location.pathname]} 
-          onClick={(e) => navigate(e.key)}   
+          selectedKeys={[location.pathname]}
+          onClick={(e) => navigate(e.key)}
           className={styles.menu}
         />
       </Sider>
 
       <Layout className={styles.main}>
-        <Header className={styles.header}>
-          {/* тут потом будет поиск, иконки, аватар */}
-          <div className={styles.pageTitle}>Главная</div>
-          <div className={styles.headerRight}>Поиск, колокольчик, аватар</div>
+        <Header className={styles.headerOuter}>
+          <div className={styles.container}>
+            <div className={styles.header}>
+            <div className={styles.pageTitle}>Главная</div>
+            <div className={styles.headerRight}>
+              <Input
+                className={styles.search}
+                placeholder="Поиск"
+                prefix={<SearchOutlined style={{ color: '#b0b7c3' }} />}
+                allowClear
+              />
+              <Space size={16} align="center">
+                <Badge dot>
+                  <BellOutlined className={styles.headerIcon} />
+                </Badge>
+                <SettingOutlined className={styles.headerIcon} />
+                <Avatar size={40} icon={<UserOutlined />} />
+              </Space>
+            </div>
+            </div>
+          </div>
         </Header>
 
-        <Content className={styles.content}>
-          <Outlet />
-        </Content>
+        <div className={styles.container}>
+          <Content className={styles.content}>
+            <Outlet />
+          </Content>
+        </div>
       </Layout>
     </Layout>
   )
