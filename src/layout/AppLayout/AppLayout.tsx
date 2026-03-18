@@ -20,6 +20,18 @@ import {
 
 const { Sider, Header, Content } = Layout
 
+const routeTitles: Record<string, string> = {
+  '/': 'Главная',
+  '/transactions': 'Транзакции',
+  '/accounts': 'Аккаунты',
+  '/investments': 'Инвестиции',
+  '/credit-card': 'Кредитная карта',
+  '/loans': 'Кредиты',
+  '/services': 'Сервисы',
+  '/privileges': 'Мои привилегии',
+  '/settings': 'Настройки',
+}
+
 const menuItems: MenuProps['items'] = [
   { key: '/', icon: <HomeOutlined />, label: 'Главная' },
   { key: '/transactions', icon: <SwapOutlined />, label: 'Транзакции' },
@@ -36,6 +48,16 @@ export const AppLayout = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  const pageTitle =
+    routeTitles[location.pathname] ??
+    routeTitles[
+      Object.keys(routeTitles)
+        .sort((a, b) => b.length - a.length)
+        .find((k) => k !== '/' && location.pathname.startsWith(k)) ?? '/'
+    ] ??
+    'Страница'
+
   return (
     <Layout className={styles.root}>
       <Sider width={260} className={styles.sider}>
@@ -53,7 +75,7 @@ export const AppLayout = () => {
         <Header className={styles.headerOuter}>
           <div className={styles.container}>
             <div className={styles.header}>
-            <div className={styles.pageTitle}>Главная</div>
+            <div className={styles.pageTitle}>{pageTitle}</div>
             <div className={styles.headerRight}>
               <Input
                 className={styles.search}

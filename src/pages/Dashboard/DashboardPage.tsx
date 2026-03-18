@@ -5,6 +5,7 @@ import { WeeklyActivityChart } from '../../components/dashboard/WeeklyActivityCh
 import { ExpenseStatisticsPie } from '../../components/dashboard/ExpenseStatisticsPie'
 import { QuickTransferWidget } from '../../components/dashboard/QuickTransferWidget'
 import { BalanceHistoryChart } from '../../components/dashboard/BalanceHistoryChart'
+import { BankCard } from '../../components/cards/BankCard/BankCard'
 import {
   DollarCircleOutlined,
   PayCircleOutlined,
@@ -104,21 +105,22 @@ export const DashboardPage = () => {
           <div className={styles.blockTitle}>Мои карты</div>
           <Row gutter={24}>
             <Col span={12}>
-              <Card className={styles.card}>
-                <div className={styles.cardLabel}>Баланс карты</div>
-                <div className={styles.cardAmount}>$5,756</div>
-                <div className={styles.cardHolder}>Татьяна С</div>
-                <div className={styles.cardNumber}>3778 **** **** 1234</div>
-              </Card>
+              <BankCard
+                variant="primary"
+                amount="$5,756"
+                holder="Татьяна С"
+                expiry="12/22"
+                numberMasked="3778 **** **** 1234"
+              />
             </Col>
             <Col span={12}>
-              <Card className={styles.cardSecondary}>
-                {/* вторая карта, можно скопировать ту же разметку */}
-                <div className={styles.cardLabel}>Баланс карты</div>
-                <div className={styles.cardAmount}>$5,756</div>
-                <div className={styles.cardHolder}>Татьяна С</div>
-                <div className={styles.cardNumber}>3778 **** **** 1234</div>
-              </Card>
+              <BankCard
+                variant="secondary"
+                amount="$5,756"
+                holder="Татьяна С"
+                expiry="12/22"
+                numberMasked="3778 **** **** 1234"
+              />
             </Col>
           </Row>
           <div className={styles.sectionTitle} style={{ marginTop: 24 }}>

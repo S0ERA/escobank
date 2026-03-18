@@ -1,0 +1,143 @@
+.root {
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.primary {
+  background: linear-gradient(135deg, #2d2cf1 0%, #0b63f6 55%, #1d4ed8 100%);
+  color: #fff;
+  height: 252px;
+}
+
+.secondary {
+  background: #ffffff;
+  color: #243056;
+  height: 252px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  border: 1px solid #eef2ff;
+}
+
+.topRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.label {
+  font-size: 18px;
+  opacity: 0.85;
+  font-weight: 600;
+}
+
+.amountPrimary,
+.amountSecondary {
+  margin-top: 8px;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.amountSecondary {
+  color: #243056;
+  opacity: 0.95;
+}
+
+.chip {
+  width: 34px;
+  height: 26px;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  opacity: 0.95;
+}
+
+.chipDark {
+  border-color: rgba(15, 23, 42, 0.75);
+}
+
+.metaRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 44px;
+  gap: 12px;
+}
+
+.metaCol {
+  min-width: 0;
+}
+
+.metaColRight {
+  text-align: right;
+}
+
+.metaKey {
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0.7;
+}
+
+.metaVal {
+  margin-top: 4px;
+  font-size: 16px;
+  font-weight: 800;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bottomRow {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.numberPrimary,
+.numberSecondary {
+  font-size: 16px;
+  letter-spacing: 2px;
+  font-weight: 800;
+}
+
+.numberSecondary {
+  color: #243056;
+  opacity: 0.85;
+}
+
+.toggle {
+  width: 34px;
+  height: 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.25);
+  position: relative;
+}
+
+.toggle::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  right: 4px;
+  top: 3px;
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.toggleMuted {
+  width: 34px;
+  height: 18px;
+  border-radius: 999px;
+  background: #f1f5ff;
+  position: relative;
+}
+
+.toggleMuted::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  right: 4px;
+  top: 3px;
+  background: #c7d2fe;
+}
+
