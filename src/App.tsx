@@ -12,6 +12,8 @@ import { LoansPage } from './pages/Loans/LoansPage'
 import { ServicesPage } from './pages/Services/ServicesPage'
 import { PrivilegesPage } from './pages/MyPrivileges/PrivilegesPage'
 import { SettingsPage } from './pages/Settings/SettingsPage'
+import { LoginPage } from './pages/Login/LoginPage'
+import { ProtectedRoute } from './components/auth/ProtectedRoute'
 
 function App() {
   return (
@@ -25,7 +27,15 @@ function App() {
       }}
     >
       <Routes>
-        <Route element={<AppLayout />}>
+        <Route path="/login" element={<LoginPage />} />
+
+        <Route
+          element={
+            <ProtectedRoute>
+              <AppLayout />
+            </ProtectedRoute>
+          }
+        >
           <Route path="/" element={<DashboardPage />} />
           <Route path="/transactions" element={<TransactionsPage />} />
           <Route path="/accounts" element={<AccountsPage />} />

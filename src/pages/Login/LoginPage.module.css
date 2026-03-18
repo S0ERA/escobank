@@ -1,0 +1,31 @@
+.root {
+  min-height: calc(100vh - 90px);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.card {
+  width: 100%;
+  max-width: 440px;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  border: 1px solid #eef2ff;
+}
+
+.header {
+  margin-bottom: 16px;
+}
+
+.title {
+  margin: 0 0 6px !important;
+  color: #243056 !important;
+}
+
+.error {
+  color: #ff4d4f;
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
