@@ -1,0 +1,236 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.blockHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.blockTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: #243056;
+}
+
+.linkLike {
+  border: none;
+  background: transparent;
+  color: #243056;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 8px;
+}
+
+.linkLike:hover {
+  color: #0b63f6;
+}
+
+.cardHeightCompact {
+  height: 170px;
+}
+
+.accountCard {
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  border: 1px solid #eef2ff;
+}
+
+.accountTop {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 6px;
+}
+
+.accountAmount {
+  font-size: 18px;
+  font-weight: 700;
+  color: #243056;
+}
+
+.accountChart {
+  margin-top: 8px;
+}
+
+.section {
+  margin-top: 6px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: #243056;
+}
+
+.tabs {
+  flex-wrap: wrap;
+}
+
+.tabBtn {
+  border: none;
+  background: transparent;
+  color: #8a99b0;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 4px;
+  position: relative;
+}
+
+.tabBtn:hover {
+  color: #243056;
+}
+
+.tabBtnActive {
+  color: #0b63f6;
+}
+
+.tabBtnActive::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 3px;
+  border-radius: 999px;
+  background: #0b63f6;
+}
+
+.tableCard {
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  border: 1px solid #eef2ff;
+}
+
+.table :global(.ant-table) {
+  background: transparent;
+}
+
+.table :global(.ant-table-container) {
+  border-radius: 20px;
+}
+
+.table :global(.ant-table-thead > tr > th) {
+  background: transparent;
+  color: #8a99b0;
+  font-weight: 700;
+  border-bottom: 1px solid #eef2ff;
+}
+
+.table :global(.ant-table-tbody > tr > td) {
+  border-bottom: 1px solid #f1f5ff;
+  color: #243056;
+  font-weight: 600;
+}
+
+.table :global(.ant-table-tbody > tr:last-child > td) {
+  border-bottom: none;
+}
+
+.descCell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.descIcon {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid #dbeafe;
+  position: relative;
+  flex: 0 0 26px;
+  background: #ffffff;
+}
+
+.descIconUp::after,
+.descIconDown::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  border-right: 2px solid #0b63f6;
+  border-top: 2px solid #0b63f6;
+}
+
+.descIconDown::after {
+  transform: translate(-50%, -50%) rotate(225deg);
+  border-right-color: #0b63f6;
+  border-top-color: #0b63f6;
+}
+
+.descText {
+  font-weight: 700;
+}
+
+.amountPositive {
+  color: #22c55e;
+  font-weight: 800;
+}
+
+.amountNegative {
+  color: #ff4d4f;
+  font-weight: 800;
+}
+
+.downloadBtn {
+  border-radius: 999px !important;
+  border: 1px solid #1d4ed8 !important;
+  color: #1d4ed8 !important;
+  background: transparent !important;
+  font-weight: 700 !important;
+}
+
+.downloadBtn:hover {
+  border-color: #0b63f6 !important;
+  color: #0b63f6 !important;
+}
+
+.paginationRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.paginationRow :global(.ant-pagination) {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.paginationRow :global(.ant-pagination-item) {
+  border-radius: 10px;
+  border: 1px solid transparent;
+}
+
+.paginationRow :global(.ant-pagination-item-active) {
+  background: #0b63f6;
+  border-color: #0b63f6;
+}
+
+.paginationRow :global(.ant-pagination-item-active a) {
+  color: #fff;
+}
+
+.paginationRow :global(.ant-pagination-prev .ant-pagination-item-link),
+.paginationRow :global(.ant-pagination-next .ant-pagination-item-link) {
+  border-radius: 10px;
+  border: 1px solid transparent;
+}
+

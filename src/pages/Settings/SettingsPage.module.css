@@ -1,0 +1,159 @@
+.root {
+  width: 100%;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 24px;
+  border: 1px solid #eef2ff;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  padding: 16px 24px 24px;
+}
+
+.tabs {
+  margin-bottom: 8px;
+}
+
+.tabs :global(.ant-tabs-nav) {
+  margin: 0;
+}
+
+.tabs :global(.ant-tabs-nav::before) {
+  border-bottom: 1px solid #eef2ff;
+}
+
+.tabs :global(.ant-tabs-tab) {
+  padding: 12px 0;
+  font-weight: 600;
+  color: #8a99b0;
+}
+
+.tabs :global(.ant-tabs-tab + .ant-tabs-tab) {
+  margin-left: 36px;
+}
+
+.tabs :global(.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn) {
+  color: #0b63f6;
+}
+
+.tabs :global(.ant-tabs-ink-bar) {
+  background: #0b63f6;
+  height: 4px;
+  border-radius: 999px;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 24px;
+  padding-top: 10px;
+}
+
+.avatarCol {
+  display: flex;
+  justify-content: center;
+}
+
+.avatarWrap {
+  position: relative;
+  width: 130px;
+  height: 130px;
+}
+
+.avatar {
+  background: #e8edf7;
+  color: #7d8da1;
+}
+
+.avatarEditBtn {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: #0b63f6;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(11, 99, 246, 0.35);
+}
+
+.avatarEditBtn:hover {
+  background: #1d4ed8;
+}
+
+.form {
+  width: 100%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 22px;
+}
+
+.item :global(.ant-form-item-label > label) {
+  font-weight: 700;
+  color: #243056;
+}
+
+.input :global(.ant-input),
+.input :global(.ant-input-affix-wrapper),
+.date :global(.ant-picker) {
+  border-radius: 16px;
+  border-color: #dbeafe;
+  background: #ffffff;
+}
+
+.input :global(.ant-input::placeholder) {
+  color: #9aa7bd;
+}
+
+.date :global(.ant-picker-input > input::placeholder) {
+  color: #9aa7bd;
+}
+
+.dateChevron {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid #8a99b0;
+  border-bottom: 2px solid #8a99b0;
+  transform: rotate(45deg);
+  margin-top: -2px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 18px;
+}
+
+.saveBtn {
+  border-radius: 16px !important;
+  padding-inline: 34px !important;
+  height: 48px !important;
+  font-weight: 700 !important;
+}
+
+.placeholder {
+  padding: 26px 0 6px;
+}
+
+@media (max-width: 992px) {
+  .body {
+    grid-template-columns: 1fr;
+  }
+
+  .avatarCol {
+    justify-content: flex-start;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+

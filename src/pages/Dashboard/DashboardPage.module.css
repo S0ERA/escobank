@@ -1,0 +1,86 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.blockTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 14px;
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 14px;
+}
+
+.section {
+  border-radius: 24px;
+}
+
+.card {
+  border-radius: 24px;
+  background: linear-gradient(135deg, #0b63f6, #5b8def);
+  color: #fff;
+  height: 252px;
+}
+
+.cardSecondary {
+  border-radius: 24px;
+  background: #ffffff;
+  height: 252px;
+
+}
+
+.cardLabel {
+  font-size: 18px;
+  opacity: 0.8;
+}
+
+.cardAmount {
+  margin-top: 8px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.cardHolder {
+  margin-top: 16px;
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 50px;
+}
+
+.cardNumber {
+  margin-top: 30px;
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+
+.placeholder {
+  min-height: 89px;
+  /* просто “белая зона” под будущий график */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 14px;
+}
+
+.chart {
+  width: 100%;
+  min-height: 260px;
+}
+
+.transactions :global(.ant-list-item) {
+  padding-inline: 0;
+  padding: 5px 0;
+}
+
+.transactions :global(.ant-list-item-meta-title) {
+  margin-bottom: 2px;
+  padding: 0;
+}

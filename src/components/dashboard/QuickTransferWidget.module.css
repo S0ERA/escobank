@@ -1,0 +1,45 @@
+.contacts {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.contact,
+.contactActive {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  min-width: 84px;
+  opacity: 0.7;
+}
+
+.contactActive {
+  opacity: 1;
+}
+
+.name {
+  font-size: 14px;
+  color: #343c6a;
+  text-align: center;
+}
+
+.bottomRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.amount {
+  border-radius: 999px;
+}
+
+.amount :global(.ant-input-number-input) {
+  border-radius: 999px;
+}
