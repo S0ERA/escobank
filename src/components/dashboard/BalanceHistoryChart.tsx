@@ -12,17 +12,19 @@ export function BalanceHistoryChart({
   data: BalancePoint[]
   height?: number
 }) {
+  const config = {
+    data,
+    height,
+    xField: 'month',
+    yField: 'value',
+    smooth: true,
+    line: { color: '#1d4ed8', size: 3 },
+    areaStyle: { fill: 'l(270) 0:#1d4ed8 1:#ffffff' },
+    xAxis: { tickLine: null },
+    yAxis: { grid: { line: { style: { stroke: '#eef2ff' } } } },
+  } as const
+
   return (
-    <Area
-      data={data}
-      height={height}
-      xField="month"
-      yField="value"
-      smooth
-      line={{ color: '#1d4ed8', size: 3 }}
-      areaStyle={{ fill: 'l(270) 0:#1d4ed8 1:#ffffff' }}
-      xAxis={{ tickLine: null }}
-      yAxis={{ grid: { line: { style: { stroke: '#eef2ff' } } } }}
-    />
+    <Area {...(config as unknown as Record<string, unknown>)} />
   )
 }
