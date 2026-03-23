@@ -1,9 +1,12 @@
+// src/pages/Transactions/TransactionsPage.tsx (обновленная версия)
 import { Column } from '@ant-design/plots'
 import { Card, Col, Pagination, Row, Space, Table, Typography, Button } from 'antd'
 import type { TableColumnsType } from 'antd'
 import { useMemo, useState } from 'react'
 import styles from './TransactionsPage.module.css'
 import { BankCard } from '../../components/cards/BankCard/BankCard'
+import { useAuthStore } from '../../store/authStore'
+import { getUserMockData } from '../../mocks/userData'
 
 type TxKind = 'Доход' | 'Расход'
 
@@ -26,57 +29,25 @@ type MonthBar = {
 export const TransactionsPage = () => {
   const [tab, setTab] = useState<'all' | 'income' | 'expense'>('all')
   const [page, setPage] = useState(1)
+  const user = useAuthStore((s) => s.user)
 
-  const txAll = useMemo<TxRow[]>(
-    () => [
-      {
-        key: 't1',
-        description: 'Spotify Subscription',
-        transactionId: '#12548796',
-        kind: 'Расход',
-        card: '1234 ****',
-        dateLabel: '28 Jan, 12.30 AM',
-        amount: -2500,
-      },
-      {
-        key: 't2',
-        description: 'Freepik Sales',
-        transactionId: '#12548796',
-        kind: 'Доход',
-        card: '1234 ****',
-        dateLabel: '25 Jan, 10.40 PM',
-        amount: 750,
-      },
-      {
-        key: 't3',
-        description: 'Mobile Service',
-        transactionId: '#12548796',
-        kind: 'Расход',
-        card: '1234 ****',
-        dateLabel: '20 Jan, 10.40 PM',
-        amount: -150,
-      },
-      {
-        key: 't4',
-        description: 'Wilson',
-        transactionId: '#12548796',
-        kind: 'Расход',
-        card: '1234 ****',
-        dateLabel: '15 Jan, 03.29 PM',
-        amount: -1050,
-      },
-      {
-        key: 't5',
-        description: 'Emilly',
-        transactionId: '#12548796',
-        kind: 'Доход',
-        card: '1234 ****',
-        dateLabel: '14 Jan, 10.40 PM',
-        amount: 840,
-      },
-    ],
-    [],
-  )
+  const userData = useMemo(() => {
+    if (!user) return null
+    return getUserMockData(user.id)
+  }, [user])
+
+  const txAll = useMemo<TxRow[]>(() => {
+    if (!userData) return []
+    return userData.transactions.map(tx => ({
+      key: tx.id,
+      description: tx.description,
+      transactionId: tx.transactionId,
+      kind: tx.kind,
+      card: tx.card,
+      dateLabel: tx.dateLabel,
+      amount: tx.amount,
+    }))
+  }, [userData])
 
   const txFiltered = useMemo(() => {
     if (tab === 'income') return txAll.filter((t) => t.amount > 0)
@@ -141,6 +112,10 @@ export const TransactionsPage = () => {
     [],
   )
 
+  if (!userData) {
+    return <div>Загрузка...</div>
+  }
+
   return (
     <div className={styles.root}>
       <Row gutter={24}>
@@ -153,28 +128,19 @@ export const TransactionsPage = () => {
           </div>
 
           <Row gutter={24}>
-            <Col xs={24} md={12}>
-              <BankCard
-                variant="primary"
-                balanceLabel="Баланс карты"
-                amount="$5,756"
-                holder="Татьяна С"
-                expiry="12/22"
-                numberMasked="3778 **** **** 1234"
-                className={styles.cardHeightCompact}
-              />
-            </Col>
-            <Col xs={24} md={12}>
-              <BankCard
-                variant="secondary"
-                balanceLabel="Баланс карты"
-                amount="$5,756"
-                holder="Татьяна С"
-                expiry="12/22"
-                numberMasked="3778 **** **** 1234"
-                className={styles.cardHeightCompact}
-              />
-            </Col>
+            {userData.cards.map((card) => (
+              <Col xs={24} md={12} key={card.id}>
+                <BankCard
+                  variant={card.variant}
+                  balanceLabel="Баланс карты"
+                  amount={card.amount}
+                  holder={card.holder}
+                  expiry={card.expiry}
+                  numberMasked={card.numberMasked}
+                  className={styles.cardHeightCompact}
+                />
+              </Col>
+            ))}
           </Row>
         </Col>
 
@@ -182,7 +148,9 @@ export const TransactionsPage = () => {
           <div className={styles.blockTitle}>Мой счет</div>
           <Card className={styles.accountCard} bordered={false}>
             <div className={styles.accountTop}>
-              <Typography.Text className={styles.accountAmount}>$12,500</Typography.Text>
+              <Typography.Text className={styles.accountAmount}>
+                ${userData.currentBalance.toLocaleString()}
+              </Typography.Text>
             </div>
             <div className={styles.accountChart}>
               <Column
@@ -254,7 +222,7 @@ export const TransactionsPage = () => {
           <Pagination
             current={page}
             onChange={(p) => setPage(p)}
-            total={40}
+            total={txFiltered.length}
             pageSize={10}
             showSizeChanger={false}
             size="small"
