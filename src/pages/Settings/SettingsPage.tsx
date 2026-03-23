@@ -1,10 +1,22 @@
-import { Avatar, Button, DatePicker, Form, Input, Tabs, Typography } from 'antd'
-import { EditOutlined, UserOutlined } from '@ant-design/icons'
+// src/pages/Settings/SettingsPage.tsx (обновленная версия)
+import { Avatar, Button, DatePicker, Form, Input, Tabs, Typography, message } from 'antd'
+import { EditOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAuthStore } from '../../store/authStore'
 import styles from './SettingsPage.module.css'
 
 export const SettingsPage = () => {
   const [activeTab, setActiveTab] = useState<'edit' | 'prefs' | 'security'>('edit')
+  const navigate = useNavigate()
+  const logout = useAuthStore((s) => s.logout)
+  const user = useAuthStore((s) => s.user)
+
+  const handleLogout = () => {
+    logout()
+    message.success('Вы вышли из аккаунта')
+    navigate('/login')
+  }
 
   return (
     <div className={styles.root}>
@@ -35,14 +47,14 @@ export const SettingsPage = () => {
               <Form layout="vertical" className={styles.form}>
                 <div className={styles.grid}>
                   <Form.Item label="Твое имя" className={styles.item}>
-                    <Input defaultValue="Шарлин Рид" className={styles.input} />
+                    <Input defaultValue={user?.displayName || ''} className={styles.input} />
                   </Form.Item>
                   <Form.Item label="Имя пользователя" className={styles.item}>
-                    <Input defaultValue="Шарлин Рид" className={styles.input} />
+                    <Input defaultValue={user?.username || ''} className={styles.input} />
                   </Form.Item>
 
                   <Form.Item label="Email" className={styles.item}>
-                    <Input defaultValue="charlenereed@gmail.com" className={styles.input} />
+                    <Input defaultValue={user?.email || ''} className={styles.input} />
                   </Form.Item>
                   <Form.Item label="Пароль" className={styles.item}>
                     <Input.Password defaultValue="**********" className={styles.input} />
@@ -80,14 +92,46 @@ export const SettingsPage = () => {
                   <Button type="primary" size="large" className={styles.saveBtn}>
                     Сохранить
                   </Button>
+                  <Button
+                    danger
+                    size="large"
+                    icon={<LogoutOutlined />}
+                    onClick={handleLogout}
+                    className={styles.logoutBtn}
+                  >
+                    Выйти из аккаунта
+                  </Button>
                 </div>
               </Form>
+            </div>
+          </div>
+        ) : activeTab === 'security' ? (
+          <div className={styles.securitySection}>
+            <Typography.Title level={4} className={styles.securityTitle}>
+              Безопасность аккаунта
+            </Typography.Title>
+            <div className={styles.securityActions}>
+              <Button
+                type="primary"
+                ghost
+                onClick={() => message.info('Функция смены пароля в разработке')}
+              >
+                Сменить пароль
+              </Button>
+              <Button
+                danger
+                icon={<LogoutOutlined />}
+                onClick={handleLogout}
+                size="large"
+              >
+                Выйти из аккаунта
+              </Button>
             </div>
           </div>
         ) : (
           <div className={styles.placeholder}>
             <Typography.Text type="secondary">
-              Раздел “{activeTab === 'prefs' ? 'Предпочтения' : 'Безопасность'}” в разработке.
+              Раздел “Предпочтения” в разработке.
             </Typography.Text>
           </div>
         )}

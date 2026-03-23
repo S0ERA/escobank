@@ -157,3 +157,20 @@
   }
 }
 
+.logoutBtn {
+  margin-left: 16px;
+}
+
+.securitySection {
+  padding: 24px;
+}
+
+.securityTitle {
+  margin-bottom: 24px !important;
+}
+
+.securityActions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
