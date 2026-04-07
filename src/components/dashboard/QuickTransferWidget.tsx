@@ -1,4 +1,5 @@
 import { Avatar, Button, InputNumber, Space, Typography } from 'antd'
+import { useMemo } from 'react'
 import styles from './QuickTransferWidget.module.css'
 
 export type QuickTransferContact = {
@@ -22,10 +23,13 @@ export function QuickTransferWidget({
   onAmountChange: (amount: number) => void
   onSend: () => void
 }) {
-  const selected = contacts.find((c) => c.id === selectedId)
+  const selected = useMemo(
+    () => contacts.find((c) => c.id === selectedId),
+    [contacts, selectedId]
+  )
 
   return (
-    <Space direction="vertical" style={{ width: '100%' }} size={16}>
+    <Space direction="vertical" size={16} className={styles.spaceContainer}>
       <div className={styles.contacts}>
         {contacts.map((c) => {
           const active = c.id === selectedId

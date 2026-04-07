@@ -1,22 +1,15 @@
-// src/pages/Settings/SettingsPage.tsx (обновленная версия)
-import { Avatar, Button, DatePicker, Form, Input, Tabs, Typography, message } from 'antd'
+// src/pages/Settings/SettingsPage.tsx
+import { Avatar, Button, DatePicker, Form, Input, Tabs, Typography } from 'antd'
 import { EditOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../../store/authStore'
+import { useLogout } from '../../shared/hooks/useLogout'
 import styles from './SettingsPage.module.css'
 
 export const SettingsPage = () => {
   const [activeTab, setActiveTab] = useState<'edit' | 'prefs' | 'security'>('edit')
-  const navigate = useNavigate()
-  const logout = useAuthStore((s) => s.logout)
   const user = useAuthStore((s) => s.user)
-
-  const handleLogout = () => {
-    logout()
-    message.success('Вы вышли из аккаунта')
-    navigate('/login')
-  }
+  const handleLogout = useLogout()
 
   return (
     <div className={styles.root}>
@@ -114,7 +107,7 @@ export const SettingsPage = () => {
               <Button
                 type="primary"
                 ghost
-                onClick={() => message.info('Функция смены пароля в разработке')}
+                onClick={() => void 0}
               >
                 Сменить пароль
               </Button>
@@ -131,7 +124,7 @@ export const SettingsPage = () => {
         ) : (
           <div className={styles.placeholder}>
             <Typography.Text type="secondary">
-              Раздел “Предпочтения” в разработке.
+              Раздел "Предпочтения" в разработке.
             </Typography.Text>
           </div>
         )}

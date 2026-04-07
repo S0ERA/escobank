@@ -1,50 +1,19 @@
-// src/pages/Dashboard/DashboardPage.tsx (обновленная версия)
+// src/pages/Dashboard/DashboardPage.tsx
 import { Card, Row, Col, message } from 'antd'
 import styles from './DashboardPage.module.css'
 import { TransactionsWidget } from '../../components/dashboard/TransactionsWidget'
-import { WeeklyActivityChart } from '../../components/dashboard/WeeklyActivityChart'
-import { ExpenseStatisticsPie } from '../../components/dashboard/ExpenseStatisticsPie'
+import { WeeklyActivityChart } from '../../shared/components/charts/WeeklyActivityChart'
+import { ExpenseStatisticsPie } from '../../shared/components/charts/ExpenseStatisticsPie'
 import { QuickTransferWidget } from '../../components/dashboard/QuickTransferWidget'
-import { BalanceHistoryChart } from '../../components/dashboard/BalanceHistoryChart'
+import { BalanceHistoryChart } from '../../shared/components/charts/BalanceHistoryChart'
 import { BankCard } from '../../components/cards/BankCard/BankCard'
-import { DollarCircleOutlined, PayCircleOutlined } from '@ant-design/icons'
-import { useMemo, useState } from 'react'
-import { useAuthStore } from '../../store/authStore'
-import { getUserMockData } from '../../mocks/userData'
+import { useState } from 'react'
+import { useDashboardData } from '../../shared/hooks/useDashboardData'
 
 export const DashboardPage = () => {
   const [selectedContactId, setSelectedContactId] = useState('c1')
   const [amount, setAmount] = useState(525.5)
-  const user = useAuthStore((s) => s.user)
-
-  // Получаем данные для текущего пользователя
-  const userData = useMemo(() => {
-    if (!user) return null
-    return getUserMockData(user.id)
-  }, [user])
-
-  const txItems = useMemo(() => {
-    if (!userData) return []
-    // Берем последние 3 транзакции для виджета
-    return userData.transactions.slice(0, 3).map(tx => ({
-      id: tx.id,
-      title: tx.description,
-      dateLabel: tx.dateLabel,
-      amount: tx.amount,
-      icon: tx.amount < 0 ? <PayCircleOutlined /> : <DollarCircleOutlined />,
-    }))
-  }, [userData])
-
-  const contacts = useMemo(
-    () => [
-      { id: 'c1', name: 'Нежный айдар' },
-      { id: 'c2', name: 'Анна' },
-      { id: 'c3', name: 'Мария' },
-      { id: 'c4', name: 'Алия' },
-      { id: 'c5', name: 'Олег' },
-    ],
-    [],
-  )
+  const { userData, txItems, contacts } = useDashboardData()
 
   if (!userData) {
     return <div>Загрузка...</div>

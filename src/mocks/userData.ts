@@ -1,5 +1,3 @@
-import type { MockUser } from './users'
-
 export type Transaction = {
     id: string
     description: string

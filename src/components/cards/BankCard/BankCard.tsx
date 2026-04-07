@@ -1,7 +1,6 @@
 import { Card } from 'antd'
 import styles from './BankCard.module.css'
-
-export type BankCardVariant = 'primary' | 'secondary'
+import type { BankCardProps } from '../../../shared/types/bankCard'
 
 export function BankCard({
   variant,
@@ -11,15 +10,7 @@ export function BankCard({
   expiry,
   numberMasked,
   className,
-}: {
-  variant: BankCardVariant
-  balanceLabel?: string
-  amount: string
-  holder: string
-  expiry: string
-  numberMasked: string
-  className?: string
-}) {
+}: BankCardProps) {
   const isPrimary = variant === 'primary'
 
   return (

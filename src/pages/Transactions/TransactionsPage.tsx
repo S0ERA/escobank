@@ -1,116 +1,18 @@
-// src/pages/Transactions/TransactionsPage.tsx (обновленная версия)
+// src/pages/Transactions/TransactionsPage.tsx
 import { Column } from '@ant-design/plots'
-import { Card, Col, Pagination, Row, Space, Table, Typography, Button } from 'antd'
-import type { TableColumnsType } from 'antd'
-import { useMemo, useState } from 'react'
+import { Card, Col, Pagination, Row, Space, Table, Typography } from 'antd'
+import { useState } from 'react'
 import styles from './TransactionsPage.module.css'
 import { BankCard } from '../../components/cards/BankCard/BankCard'
-import { useAuthStore } from '../../store/authStore'
-import { getUserMockData } from '../../mocks/userData'
-
-type TxKind = 'Доход' | 'Расход'
-
-type TxRow = {
-  key: string
-  description: string
-  transactionId: string
-  kind: TxKind
-  card: string
-  dateLabel: string
-  amount: number
-}
-
-type MonthBar = {
-  month: string
-  value: number
-  highlight: 'Обычный' | 'Акцент'
-}
+import { useTransactionsData } from '../../shared/hooks/useTransactionsData'
+import { useTransactionsColumns } from '../../shared/hooks/useTransactionsColumns'
+import type { MonthBar } from '../../shared/hooks/useTransactionsData'
 
 export const TransactionsPage = () => {
   const [tab, setTab] = useState<'all' | 'income' | 'expense'>('all')
   const [page, setPage] = useState(1)
-  const user = useAuthStore((s) => s.user)
-
-  const userData = useMemo(() => {
-    if (!user) return null
-    return getUserMockData(user.id)
-  }, [user])
-
-  const txAll = useMemo<TxRow[]>(() => {
-    if (!userData) return []
-    return userData.transactions.map(tx => ({
-      key: tx.id,
-      description: tx.description,
-      transactionId: tx.transactionId,
-      kind: tx.kind,
-      card: tx.card,
-      dateLabel: tx.dateLabel,
-      amount: tx.amount,
-    }))
-  }, [userData])
-
-  const txFiltered = useMemo(() => {
-    if (tab === 'income') return txAll.filter((t) => t.amount > 0)
-    if (tab === 'expense') return txAll.filter((t) => t.amount < 0)
-    return txAll
-  }, [tab, txAll])
-
-  const monthBars = useMemo<MonthBar[]>(
-    () => [
-      { month: 'Авг', value: 35, highlight: 'Обычный' },
-      { month: 'Сен', value: 55, highlight: 'Обычный' },
-      { month: 'Окт', value: 50, highlight: 'Обычный' },
-      { month: 'Ноя', value: 65, highlight: 'Обычный' },
-      { month: 'Дек', value: 95, highlight: 'Акцент' },
-      { month: 'Янв', value: 60, highlight: 'Обычный' },
-    ],
-    [],
-  )
-
-  const columns = useMemo<TableColumnsType<TxRow>>(
-    () => [
-      {
-        title: 'Описание',
-        dataIndex: 'description',
-        key: 'description',
-        render: (_v, row) => (
-          <div className={styles.descCell}>
-            <span
-              className={`${styles.descIcon} ${row.amount < 0 ? styles.descIconDown : styles.descIconUp}`}
-              aria-hidden
-            />
-            <span className={styles.descText}>{row.description}</span>
-          </div>
-        ),
-      },
-      { title: 'Транзакция ID', dataIndex: 'transactionId', key: 'transactionId' },
-      { title: 'Тип', dataIndex: 'kind', key: 'kind' },
-      { title: 'Карта', dataIndex: 'card', key: 'card' },
-      { title: 'Дата', dataIndex: 'dateLabel', key: 'dateLabel' },
-      {
-        title: 'Сумма',
-        dataIndex: 'amount',
-        key: 'amount',
-        align: 'right',
-        render: (v: number) => (
-          <span className={v < 0 ? styles.amountNegative : styles.amountPositive}>
-            {v < 0 ? '-' : '+'}${Math.abs(v).toLocaleString()}
-          </span>
-        ),
-      },
-      {
-        title: 'Чек',
-        key: 'receipt',
-        align: 'center',
-        render: () => (
-          <Button className={styles.downloadBtn} size="middle">
-            Download
-          </Button>
-        ),
-      },
-    ],
-    [],
-  )
+  const { userData, txFiltered, monthBars } = useTransactionsData(tab)
+  const columns = useTransactionsColumns()
 
   if (!userData) {
     return <div>Загрузка...</div>
@@ -210,7 +112,7 @@ export const TransactionsPage = () => {
         </div>
 
         <Card className={styles.tableCard} bordered={false}>
-          <Table<TxRow>
+          <Table
             columns={columns}
             dataSource={txFiltered}
             pagination={false}

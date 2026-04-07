@@ -43,3 +43,7 @@
 .amount :global(.ant-input-number-input) {
   border-radius: 999px;
 }
+
+.spaceContainer {
+  width: 100%;
+}
